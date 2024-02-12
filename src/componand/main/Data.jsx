@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/userApi";
+import { RerenderContext } from "../../context/conertApi";
 
 function Data() {
   const { IsLoggedIn } = useContext(UserContext);
+  const { rend, ren } = useContext(RerenderContext);
   const [data, setdata] = useState(null);
   const URL =
     import.meta.env.VITE_URL || "https://urlshordernerbyid.onrender.com";
@@ -24,13 +26,14 @@ function Data() {
         const da = await res.json();
         console.log(da);
         setdata(da);
+        rend();
       } catch (error) {
         console.error("Error fetching data:", error);
         // Handle error state if needed
       }
     };
     fetchData();
-  }, [IsLoggedIn]);
+  }, [IsLoggedIn, ren]);
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-4 sm:m-8">

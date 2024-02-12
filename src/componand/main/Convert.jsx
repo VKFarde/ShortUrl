@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { RerenderContext } from "../../context/conertApi";
 
 function Convert() {
   const URL = import.meta.env.VITE_URL;
   const [val, setval] = useState({ val: "" });
+  const { rerend } = useContext(RerenderContext);
   const hSubmit = async (e) => {
     e.preventDefault();
     const url =
@@ -24,7 +26,7 @@ function Convert() {
       console.log(data);
       if (res.status === 200) {
         alert(data.msg, data.url);
-        window.location.reload();
+        rerend();
       }
       console.log(res);
     } catch (err) {
