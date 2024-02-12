@@ -61,6 +61,17 @@ const productControl = {
       res.status(500).json({ message: "Internal server error" });
     }
   },
+
+  del: async (req, res) => {
+    const { id } = req.body;
+
+    try {
+      await URL.findOneAndDelete({ shortId: id });
+      res.status(200).json({ msg: "succesfully delete recond" });
+    } catch (err) {
+      res.status(500).json({ msg: "Internal server error " });
+    }
+  },
 };
 
 module.exports = productControl;

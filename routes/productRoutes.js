@@ -9,4 +9,6 @@ urlRoutes.get("/api/v1/userUrls", userControl.auth, productControl.allurls);
 
 urlRoutes.get("/:shortId", productControl.hVisits);
 
+urlRoutes.delete("/api/v1/del", productControl.del);
+
 module.exports = urlRoutes;
