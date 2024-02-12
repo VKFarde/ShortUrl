@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/userApi";
 
 function Login() {
-  const URL = process.env.URL;
+  const URL =
+    import.meta.env.VITE_URL || "https://urlshordernerbyid.onrender.com";
   const url = `${URL}/api/v1/login`;
+  console.log(url);
   const [user, setuser] = useState({
     email: "",
     password: "",

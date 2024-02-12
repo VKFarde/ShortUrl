@@ -1,15 +1,17 @@
 import { useState } from "react";
 
 function Convert() {
-  const URL = process.env.URL;
+  const URL = import.meta.env.VITE_URL;
   const [val, setval] = useState({ val: "" });
   const hSubmit = async (e) => {
     e.preventDefault();
-    const url = `${URL}/api/v1/convert`;
+    const url =
+      // `${URL}/api/v1/convert` ||
+      "https://urlshordernerbyid.onrender.com/api/v1/convert";
     try {
       const da = await JSON.stringify(val);
       const token = localStorage.getItem("token");
-      console.log(da);
+      console.log(url);
       const res = await fetch(url, {
         method: "POST",
         headers: {
@@ -19,6 +21,7 @@ function Convert() {
         body: da,
       });
       const data = await res.json();
+      console.log(data);
       if (res.status === 200) {
         alert(data.msg, data.url);
         window.location.reload();

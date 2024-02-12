@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function Res() {
-  const URL = process.env.URL;
+  const URL =
+    import.meta.env.VITE_URL || "https://urlshordernerbyid.onrender.com";
   const nav = useNavigate();
   const url = `${URL}/api/v1/res`;
   const [user, setuser] = useState({

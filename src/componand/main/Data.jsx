@@ -4,7 +4,8 @@ import { UserContext } from "../../context/userApi";
 function Data() {
   const { IsLoggedIn } = useContext(UserContext);
   const [data, setdata] = useState(null);
-  const URL = process.env.URL;
+  const URL =
+    import.meta.env.VITE_URL || "https://urlshordernerbyid.onrender.com";
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,10 +34,10 @@ function Data() {
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-4 sm:m-8">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <table className="w-11/12 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="w-1/2 px-6 py-3">
               URls
             </th>
             <th scope="col" className="px-6 py-3">
@@ -57,7 +58,7 @@ function Data() {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="w-1/2 flex flex-wrap px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     <a href={data.redirectURL} target="_blank" rel="nofollow">
                       {data.redirectURL}
