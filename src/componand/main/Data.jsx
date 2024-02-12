@@ -4,7 +4,7 @@ import { RerenderContext } from "../../context/conertApi";
 
 function Data() {
   const { IsLoggedIn } = useContext(UserContext);
-  const { rend, ren } = useContext(RerenderContext);
+  const { rend, rerend, ren } = useContext(RerenderContext);
   const [data, setdata] = useState(null);
   const URL =
     import.meta.env.VITE_URL || "https://urlshordernerbyid.onrender.com";
@@ -35,12 +35,30 @@ function Data() {
     fetchData();
   }, [IsLoggedIn, ren]);
 
+  const hdelete = async (n) => {
+    console.log(n);
+    const id = JSON.stringify({ id: n });
+
+    try {
+      const res = await fetch(`${URL}/api/v1/del`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: id,
+      });
+      rerend();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-4 sm:m-8">
-      <table className="w-11/12 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <table className="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" className="w-1/2 px-6 py-3">
+            <th scope="col" className="px-6 py-3">
               URls
             </th>
             <th scope="col" className="px-6 py-3">
@@ -48,6 +66,9 @@ function Data() {
             </th>
             <th scope="col" className="px-6 py-3">
               Visit Count
+            </th>
+            <th scope="col" className="px-6 py-3">
+              ........
             </th>
           </tr>
         </thead>
@@ -61,7 +82,7 @@ function Data() {
                 >
                   <th
                     scope="row"
-                    className="w-1/2 flex flex-wrap px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     <a href={data.redirectURL} target="_blank" rel="nofollow">
                       {data.redirectURL}
@@ -77,6 +98,12 @@ function Data() {
                     </a>
                   </td>
                   <td className="px-6 py-4">{data.visitHistory.length}</td>
+                  <td
+                    onClick={() => hdelete(data.shortId)}
+                    className="px-6 py-4 hover:text-red-500"
+                  >
+                    Delete
+                  </td>
                 </tr>
               );
             })}
